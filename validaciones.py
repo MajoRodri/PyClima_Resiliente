@@ -176,6 +176,22 @@ def validar_zona():
             print(f"❌ Error: '{zona_input}' no coincide con ningún distrito oficial de Madrid.")
             
         print("🔄 Inténtalo de nuevo.\n")
+        
+def validar_acceso():
+    try:
+        with open("empleados.json", "r") as f:
+            lista_autorizados = json.load(f)
+        numero_ingresado = input("Introduce tu número de empleado: ")
+        if numero_ingresado in lista_autorizados:
+            print("Acceso concedido.")
+            return True
+        else:
+            print("Número de empleado no reconocido.")
+            return False
+            
+    except FileNotFoundError:
+        print("Error: El archivo de empleados no existe.")
+        return False
 
 
 def validar_duplicado(nueva_fecha, nueva_zona, historial):

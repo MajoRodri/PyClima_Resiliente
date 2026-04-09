@@ -1,7 +1,8 @@
 import json
 import os
-import getpass # librería nativa que hace que se oculte el texto; es un método de seguridad para la contraseña
+import getpass
 
+DB_EMPLEADOS = "empleados.json"
 ARCHIVO_USUARIOS = 'usuarios.json'
 ARCHIVO_CLIMA = 'datos_clima.json'
 
@@ -33,7 +34,6 @@ def registrar_usuario():
         if num.isdigit() and len(num) == 6: break
         print("Error: Deben ser 6 números.")
     while True:
-        # Reemplazamos input() por getpass.getpass() para que no se muestra la contraseña
         pw = getpass.getpass("Contraseña (8+ alfanuméricos): ")
         if len(pw) >= 8 and pw.isalnum(): break
         print("Error: Mínimo 8 caracteres sin símbolos.")
@@ -45,7 +45,6 @@ def registrar_usuario():
 
 def iniciar_sesion():
     num = input("Número empleado: ")
-    # Reemplazamos input() por getpass.getpass()
     pw = getpass.getpass("Contraseña: ")
     for u in cargar_datos(ARCHIVO_USUARIOS):
         if u["num_empleado"] == num and u["password"] == pw:
@@ -104,10 +103,6 @@ def consultar_por_fecha():
         if r.get("fecha") == fecha: imprimir_detalle(r)
 
 def obtener_nombre_operario(num_empleado):
-    """
-    Traductor de identidades: Recibe un número de empleado y 
-    devuelve un texto formateado con su nombre, apellido y número.
-    """
     if not num_empleado or num_empleado == "Desconocido":
         return "Operario Desconocido"
         
